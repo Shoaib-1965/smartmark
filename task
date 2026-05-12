@@ -1,0 +1,262 @@
+# SmartMark — App Task File
+
+---
+
+## About SmartMark
+
+**SmartMark** is a Smart Attendance Management System designed for companies to manage employee attendance, access control, and payroll — all in one place.
+
+### How It Works (Hardware + Software)
+- Employee taps their **RFID card** on the reader at the office door
+- **Raspberry Pi** reads the card, triggers the **camera** for face verification
+- If both RFID + face match → **servo motor opens the door**
+- **Attendance is auto-logged** to Firebase with timestamp
+- Manager and Employee access data through the **Flutter mobile app**
+
+### User Roles
+| Role | Access |
+|---|---|
+| **Manager (Admin)** | Full control — employees, attendance, payroll, settings |
+| **Employee** | Personal attendance, salary, profile |
+
+### Tech Stack
+- **Frontend:** Flutter (Mobile App)
+- **Backend:** Firebase (Auth, Firestore, Storage, Cloud Functions)
+- **Hardware:** Raspberry Pi 3B+, Pi Camera V1.3, RC522 RFID Reader, SG90 Servo
+- **Language (Pi):** Python (face_recognition, firebase-admin, RPi.GPIO)
+
+### Theme
+- **Background:** White `#FFFFFF`
+- **Primary:** Blue `#1A73E8`
+- **Text:** Black `#0D0D0D`
+- **Cards:** Light Grey `#F5F7FA`
+- **Font:** Inter
+- **Logo:** `assets/logo.png` (used across all pages — splash, login, app bar)
+
+---
+
+## App Pages & UI Prompts
+
+---
+
+### 1. Splash Screen
+
+**Route:** `/splash`
+
+**Prompt:**
+> White background, SmartMark logo from `assets/logo.png` centered on screen, bold black app name 'SmartMark' below logo, subtitle 'Smart Attendance System' in grey below name, animated blue circular pulse ring around logo, clean minimal flat design, blue `#1A73E8` accent, Inter font, auto-navigates to Login after 3 seconds.
+
+---
+
+### 2. Login Page
+
+**Route:** `/login`
+
+**Prompt:**
+> White background, SmartMark logo `assets/logo.png` at top center (small), bold black heading 'Welcome Back', two role selector cards below — 'Manager' with briefcase icon and 'Employee' with person icon, selected card has blue `#1A73E8` fill with white text and shadow, unselected card white with blue border, below cards clean email input field and password input field with blue focus border and floating label, show/hide password toggle, blue 'Login' button full width with white text, 'Forgot Password?' text link below in blue, subtle card shadow, flat minimal UI.
+
+---
+
+### 3. Forgot Password Page
+
+**Route:** `/forgot-password`
+
+**Prompt:**
+> White background, back arrow top left in black, bold black heading 'Forgot Password', grey subtitle 'Enter your email to receive reset link', email input field with blue focus border, blue 'Send Reset Link' full width button, success state shows blue checkmark icon with message 'Reset link sent!', clean minimal flat design, Inter font.
+
+---
+
+### 4. Change Password Page
+
+**Route:** `/change-password`
+
+**Prompt:**
+> White background, back arrow top left, bold black heading 'Change Password', grey subtitle 'Set your new password', three input fields — Current Password, New Password, Confirm Password, all with blue focus border and show/hide toggle, blue 'Update Password' full width button, warning note in light blue box 'You were using an auto-generated password. Please update it.', clean flat minimal design.
+
+---
+
+### 5. Manager Dashboard
+
+**Route:** `/manager/dashboard`
+
+**Prompt:**
+> White background, blue `#1A73E8` top app bar with SmartMark logo `assets/logo.png` left, manager name and avatar right, greeting text 'Good Morning, [Name]' bold black below app bar, row of 4 white stat cards with light grey background and blue left border accent — Total Employees (people icon), Present Today (green dot icon), Absent Today (red dot icon), Late Arrivals (clock icon), each card shows number bold blue and label black, hover effect lifts card with deeper shadow, below cards section 'Recent Activity' showing latest employee check-ins as list rows with avatar, name, time, status badge, bottom navigation bar white with blue active icon — Dashboard, Employees, Attendance, Payroll, Settings.
+
+---
+
+### 6. Employee List Page
+
+**Route:** `/manager/employees`
+
+**Prompt:**
+> White background, blue app bar with title 'Employees' white text and SmartMark logo `assets/logo.png`, search bar below app bar with grey border blue focus, filter chips row — All, Present, Absent, by Department, each employee row in white card — circular avatar left, name bold black, role and department grey subtitle, status badge right (green 'Present' / red 'Absent' / orange 'Late'), hover row turns light blue `#E8F0FE`, floating blue circular Add Employee button bottom right with white plus icon, flat clean design.
+
+---
+
+### 7. Add New Employee Page
+
+**Route:** `/manager/add-employee`
+
+**Prompt:**
+> White background, blue app bar 'Add New Employee' white text, large circular profile photo upload area center top with blue dashed border and blue camera icon inside, tap to pick image from gallery, below photo upload clean input fields in white cards — Full Name, CNIC Number, Email, Role (dropdown), Department (dropdown), Hourly Rate (PKR), RFID Card UID (with scan icon), all fields blue focus border floating label black text, auto-generated Username and Password shown in light grey locked read-only fields with copy icon, blue 'Save Employee' full width button at bottom, flat minimal design.
+
+---
+
+### 8. Employee Detail Page (Manager View)
+
+**Route:** `/manager/employee-detail/:id`
+
+**Prompt:**
+> White background, blue app bar with employee name and back arrow, top section blue card showing employee avatar large, name bold white, role and department white subtitle, join date white, below white cards — CNIC, Email, RFID UID, Hourly Rate each as info row with label grey and value black, attendance summary section 3 cards — Present, Absent, Late with counts in blue black red, recent attendance list below with date, check-in, check-out, hours, Edit Employee blue outline button and Delete red outline button at bottom, clean flat design.
+
+---
+
+### 9. Edit Employee Page
+
+**Route:** `/manager/edit-employee/:id`
+
+**Prompt:**
+> White background, blue app bar 'Edit Employee', pre-filled input fields same as Add Employee page — Full Name, CNIC, Email, Role, Department, Hourly Rate, RFID Card UID, all editable with blue focus border, profile photo editable with tap to change, blue 'Update Employee' full width button at bottom, flat minimal clean design, Inter font.
+
+---
+
+### 10. Attendance Records Page (Manager)
+
+**Route:** `/manager/attendance`
+
+**Prompt:**
+> White background, blue app bar 'Attendance Records', horizontal date/month selector bar below app bar in light grey with blue selected date highlight, filter row — All, Present, Absent, Late as chips, attendance table below with columns — Employee Name with avatar, Check-in Time, Check-out Time, Total Hours, Status badge, rows alternate white and light grey `#F5F7FA`, hover row light blue, green badge 'Present' red badge 'Absent' orange badge 'Late', blue 'Export CSV' button top right, flat clean design.
+
+---
+
+### 11. Payroll Page (Manager)
+
+**Route:** `/manager/payroll`
+
+**Prompt:**
+> White background, blue app bar 'Payroll', month and year dropdown selector top, summary card below — blue background, white text showing Total Payroll Amount for selected month bold large, below list of employee payroll cards — white card each showing avatar, name, total days present, total hours, hourly rate, calculated salary bold blue, status badge blue 'Paid' or grey 'Unpaid', small blue 'Download Payslip' button per card, hover card lifts shadow, flat minimal design Inter font.
+
+---
+
+### 12. Manager Notifications Page
+
+**Route:** `/manager/notifications`
+
+**Prompt:**
+> White background, blue app bar 'Notifications' with mark all read link right in blue, list of notification cards — white cards with blue left border for unread, grey left border for read, icon left (clock for late, person for absent, info for system), notification text black bold title grey subtitle, timestamp right small grey, tap card marks as read and fades border to grey, empty state shows blue bell icon with text 'No Notifications', flat clean design.
+
+---
+
+### 13. Manager Settings Page
+
+**Route:** `/manager/settings`
+
+**Prompt:**
+> White background, blue app bar 'Settings', SmartMark logo `assets/logo.png` centered top with app version below in grey, settings sections as white cards with list tiles — Office Hours (10:00 AM - 6:00 PM, editable), Company Name, Manager Profile (name, email, change photo), Change Password, Notification Preferences toggle, each tile has blue icon left, black label, grey arrow or toggle right, red 'Logout' tile at bottom with logout icon, flat minimal design.
+
+---
+
+### 14. Employee Dashboard
+
+**Route:** `/employee/dashboard`
+
+**Prompt:**
+> White background, blue app bar with SmartMark logo `assets/logo.png` left and employee name and avatar right, greeting 'Good Morning, [Name]' bold black below, today's status card — white with blue border, shows Check-in time green and Check-out time or 'Not yet' grey, below 3 summary cards in row — This Month Present (blue), Absent (red), Late (orange) with counts, salary preview card white with blue accent — 'This Month Salary: PKR [amount]' bold blue, recent attendance list below showing last 5 days, bottom navigation — Dashboard, Attendance, Salary, Profile, Settings.
+
+---
+
+### 15. Employee Attendance Page
+
+**Route:** `/employee/attendance`
+
+**Prompt:**
+> White background, blue app bar 'My Attendance', month selector top with blue arrows, calendar grid below — dates with green dot present, red dot absent, orange dot late, grey dot future, selected date highlights blue, below calendar list view of attendance records — each row shows date, day name, check-in time, check-out time, total hours, status badge, rows alternating white and light grey, flat minimal clean design.
+
+---
+
+### 16. Employee Salary Page
+
+**Route:** `/employee/salary`
+
+**Prompt:**
+> White background, blue app bar 'My Salary', month year dropdown selector, large salary card blue background white text — 'Total Salary' label, bold large amount PKR, below white cards breakdown — Total Working Days, Days Present, Total Hours Worked, Hourly Rate (PKR), Gross Salary, each as row label grey value black, salary history list below showing past 3 months as small cards with month name and amount, flat clean minimal design.
+
+---
+
+### 17. Employee Profile Page
+
+**Route:** `/employee/profile`
+
+**Prompt:**
+> White background, blue top header section, large circular profile photo center with blue edit camera icon bottom right of photo, employee name bold white below photo, role and department white subtitle, below header white info cards — Full Name, CNIC, Email, Department, Role, Join Date, Hourly Rate each as label grey value black row with divider, blue 'Edit Profile' button below cards, flat minimal clean design Inter font.
+
+---
+
+### 18. Employee Notifications Page
+
+**Route:** `/employee/notifications`
+
+**Prompt:**
+> White background, blue app bar 'Notifications', list of notification cards — white with blue left border unread grey for read, icons for salary (money icon), attendance (clock icon), system (info icon), title bold black subtitle grey, timestamp small grey right, tap marks as read, empty state blue bell icon 'No Notifications', flat clean design.
+
+---
+
+### 19. Employee Settings Page
+
+**Route:** `/employee/settings`
+
+**Prompt:**
+> White background, blue app bar 'Settings', SmartMark logo `assets/logo.png` top center with version below grey, list tiles in white card — Edit Profile, Change Password, Notifications toggle, About App, each with blue icon left black label right arrow, red Logout tile bottom with icon, flat minimal clean design.
+
+---
+
+## Folder Structure (Flutter)
+
+```
+smartmark/
+├── assets/
+│   └── logo.png          ← App logo used on all pages
+├── lib/
+│   ├── main.dart
+│   ├── screens/
+│   │   ├── splash_screen.dart
+│   │   ├── auth/
+│   │   │   ├── login_page.dart
+│   │   │   ├── forgot_password_page.dart
+│   │   │   └── change_password_page.dart
+│   │   ├── manager/
+│   │   │   ├── dashboard.dart
+│   │   │   ├── employee_list.dart
+│   │   │   ├── add_employee.dart
+│   │   │   ├── edit_employee.dart
+│   │   │   ├── employee_detail.dart
+│   │   │   ├── attendance.dart
+│   │   │   ├── payroll.dart
+│   │   │   ├── notifications.dart
+│   │   │   └── settings.dart
+│   │   └── employee/
+│   │       ├── dashboard.dart
+│   │       ├── attendance.dart
+│   │       ├── salary.dart
+│   │       ├── profile.dart
+│   │       ├── notifications.dart
+│   │       └── settings.dart
+│   ├── models/
+│   ├── services/
+│   └── widgets/
+└── pubspec.yaml          ← Add assets/logo.png here
+```
+
+---
+
+## pubspec.yaml (Assets Section)
+
+```yaml
+flutter:
+  assets:
+    - C:\Users\shoai\studioprojects\smartmark\assets\images\logo.png
+```
+
+---
+
+*SmartMark — Built with Flutter + Firebase + Raspberry Pi*

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "774726662008",
+    "project_id": "smartmark-zx5xa2",
+    "storage_bucket": "smartmark-zx5xa2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774726662008:android:14af300667125072bffa8d",
+        "android_client_info": {
+          "package_name": "com.mycompany.smartmark"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmABsLLwygk4vPVnd2tRB81iqOT48wJ7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
