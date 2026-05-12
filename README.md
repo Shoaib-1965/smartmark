@@ -1,8 +1,8 @@
 # SmartMark 🏢
 
 > **Smart Attendance Management System** — NFC + Face Recognition + Mobile App
+<img width="951" height="782" alt="logo" src="https://github.com/user-attachments/assets/6222f1a1-ccd7-4789-93da-86770da79d2c" />
 
-![SmartMark](assets/logo.png)
 
 ---
 
